@@ -15,6 +15,7 @@ import { NotificationsPage } from './components/NotificationsPage';
 import { CertificatesPage } from './components/CertificatesPage';
 import { ProfilePage } from './components/ProfilePage';
 import { AssignmentsListPage } from './components/AssignmentsListPage';
+import { ErrorBoundary } from './components/ErrorBoundary';
 import { UserData } from './context/UserContext';
 
 export type Page = 
@@ -88,8 +89,10 @@ function AppContent() {
 
 export default function App() {
   return (
-    <UserProvider>
-      <AppContent />
-    </UserProvider>
+    <ErrorBoundary>
+      <UserProvider>
+        <AppContent />
+      </UserProvider>
+    </ErrorBoundary>
   );
 }

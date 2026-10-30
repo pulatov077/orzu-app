@@ -8,14 +8,29 @@ interface DarkModeContextType {
 const DarkModeContext = createContext<DarkModeContextType | undefined>(undefined);
 
 export function DarkModeProvider({ children }: { children: ReactNode }) {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    try {
+      const saved = localStorage.getItem('orzuTheme');
+      if (saved !== null) {
+        return saved === 'dark';
+      }
+      return typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    } catch {
+      return false;
+    }
+  });
 
   useEffect(() => {
-    // Apply dark mode class to document
-    if (isDarkMode) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
+    try {
+      if (isDarkMode) {
+        document.documentElement.classList.add('dark');
+        localStorage.setItem('orzuTheme', 'dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+        localStorage.setItem('orzuTheme', 'light');
+      }
+    } catch {
+      // Safe fallback if localStorage is disabled
     }
   }, [isDarkMode]);
 

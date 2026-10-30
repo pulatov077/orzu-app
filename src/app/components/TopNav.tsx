@@ -26,7 +26,7 @@ export function TopNav({ navigate }: TopNavProps) {
   return (
     <>
     <div className="sticky top-0 z-50 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 shadow-sm">
-      <div className="max-w-7xl mx-auto px-6 py-4">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 py-2.5 sm:py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <button 
@@ -44,11 +44,12 @@ export function TopNav({ navigate }: TopNavProps) {
           </div>
 
           {/* Right side */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-1.5 sm:gap-4">
             {/* Dark Mode Toggle */}
             <button
               onClick={toggleDarkMode}
-              className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition"
+              className="p-1.5 sm:p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition"
+              aria-label="Toggle dark mode"
             >
               {isDarkMode ? (
                 <Sun className="w-5 h-5 text-yellow-400" />
@@ -60,11 +61,13 @@ export function TopNav({ navigate }: TopNavProps) {
             {/* Streak */}
             <button
               onClick={() => setStreakOpen(true)}
-              className="flex items-center gap-2 bg-orange-50 dark:bg-orange-900/20 px-3 py-2 rounded-lg transition-all duration-150 hover:scale-105 hover:shadow-md active:scale-95"
+              className="flex items-center gap-1.5 sm:gap-2 bg-orange-50 dark:bg-orange-900/20 px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg transition-all duration-150 hover:scale-105 hover:shadow-md active:scale-95"
               style={{ border: '1px solid rgba(249,115,22,0.2)' }}
             >
-              <Flame className="w-5 h-5 text-orange-500" />
-              <span className="text-orange-700 dark:text-orange-400 font-semibold">{studentData.streak} day streak</span>
+              <Flame className="w-4 h-4 sm:w-5 sm:h-5 text-orange-500 shrink-0" />
+              <span className="text-orange-700 dark:text-orange-400 font-semibold text-xs sm:text-sm">
+                {studentData.streak}d<span className="hidden sm:inline"> streak</span>
+              </span>
             </button>
 
             {/* User Profile Button - With Icon instead of Avatar */}

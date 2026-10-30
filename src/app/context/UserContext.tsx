@@ -23,16 +23,20 @@ const DEFAULT_AVATAR = 'https://i.pravatar.cc/150?img=12';
 export function UserProvider({ children }: { children: ReactNode }) {
   const [userData, setUserDataState] = useState<UserData | null>(null);
 
-  // Load user data from localStorage on mount
+  // Load user data from localStorage safely on mount
   useEffect(() => {
-    const storedData = localStorage.getItem('orzuUserData');
-    if (storedData) {
-      try {
-        const parsed = JSON.parse(storedData);
-        setUserDataState(parsed);
-      } catch (error) {
-        console.error('Failed to parse user data:', error);
+    try {
+      const storedData = localStorage.getItem('orzuUserData');
+      if (storedData) {
+        const parsed = JSON.parse(storedData) as UserData;
+        if (parsed && typeof parsed === 'object' && parsed.name) {
+          setUserDataState(parsed);
+        } else {
+          localStorage.removeItem('orzuUserData');
+        }
       }
+    } catch {
+      localStorage.removeItem('orzuUserData');
     }
   }, []);
 

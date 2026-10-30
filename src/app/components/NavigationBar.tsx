@@ -32,15 +32,15 @@ export function NavigationBar({ navigate, currentPage }: NavigationBarProps) {
               <button
                 key={item.id}
                 onClick={() => navigate(item.page)}
-                className={`flex flex-col items-center gap-1 py-3 px-4 transition min-w-[80px] ${
+                className={`flex flex-col items-center gap-1 py-2 sm:py-3 px-1 sm:px-3 transition flex-1 sm:flex-initial sm:min-w-[72px] ${
                   isActive
                     ? ''
                     : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
                 }`}
                 style={isActive ? { color: primaryColor } : {}}
               >
-                <Icon className="w-6 h-6" />
-                <span className="text-xs">{item.label}</span>
+                <Icon className="w-5 h-5 sm:w-6 sm:h-6 shrink-0" />
+                <span className="text-[10px] sm:text-xs truncate max-w-full">{item.label}</span>
               </button>
             );
           })}
